@@ -1,8 +1,7 @@
 PROGRAMS=uvctl
 OBJS=main.o parse.o msr.o util.o power.o voltage.o tjunction.o \
-compat/recallocarray.o compat/strtonum.o
-CC=cc
-CFLAGS=-Wall -march=native -O2 -I.
+compat/reallocarray.o compat/strtonum.o compat/explicit_bzero.o
+CFLAGS=-Wall -march=native -O2 -I. -DYYSTYPE_IS_DECLARED
 LDFLAGS= -lm
 LEX     = flex
 YACC    = bison -y

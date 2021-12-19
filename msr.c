@@ -6,7 +6,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <fcntl.h>
-#include <linux/limits.h>
+#include <limits.h>
 #include <unistd.h>
 #include <err.h>
 
@@ -32,11 +32,13 @@ int
 write_msr(int fd, off_t address, uint64_t *buf)
 {
 	if (pwrite(fd, buf, sizeof(*buf), address) != sizeof(*buf))
-		err(-1, "write to address 0x%lx = 0x%lx failed", address, *buf);
+		err(-1, "write to address 0x%llx = 0x%llx failed",
+		    (unsigned long long)address, (unsigned long long)*buf);
 
 	if (verbose == 2)
-		fprintf(stderr, "%s: write to address 0x%lx = 0x%lx success\n",
-		    __func__, address, *buf);
+		fprintf(stderr, "%s: write to address 0x%llx = 0x%llx success\n",
+		    __func__, (unsigned long long)address,
+		    (unsigned long long)*buf);
 
 	return (0);
 }
@@ -45,11 +47,13 @@ int
 read_msr(int fd, off_t address, uint64_t *buf)
 {
 	if (pread(fd, buf, sizeof(*buf), address) != sizeof(*buf))
-		err(-1, "read from address 0x%lx failed", address);
+		err(-1, "read from address 0x%llx failed",
+		    (unsigned long long)address);
 
 	if (verbose == 2)
-		fprintf(stderr, "%s: read from address 0x%lx = 0x%lx success\n",
-		    __func__, address, *buf);
+		fprintf(stderr, "%s: read from address 0x%llx = 0x%llx"
+		    "success\n",  __func__, (unsigned long long)address,
+		    (unsigned long long)*buf);
 
 	return (0);
 }

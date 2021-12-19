@@ -7,6 +7,11 @@
 #define __dead __attribute__ ((__noreturn__))
 #endif
 
+#ifndef HAVE_EXPLICIT_BZERO
+/* explicit_bzero.c */
+void		 explicit_bzero(void *, size_t);
+#endif
+
 #ifndef HAVE_REALLOCARRAY
 /* reallocarray.c */
 void		*reallocarray(void *, size_t, size_t);
